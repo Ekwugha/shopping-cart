@@ -17,16 +17,18 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
-
-
 // middleware and static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan ('dev'));
 
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home' })
-})
+// set routes
+const pages = require('./routes/pages.js')
+const adminPages = require('./routes/admin_pages.js')
+
+app.use('/admin/pages', adminPages)
+app.use('/', pages)
+
 
 // start the server
 const port = 3002;
