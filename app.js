@@ -1,5 +1,13 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const config = require('./config/database');
+
+// connect to db
+const dbURI = (config.database)
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => console.log('connected to mongodb'))
+    .catch((err) => console.log(err));
 
 // init app
 const app = express();
