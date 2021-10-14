@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
@@ -16,11 +17,15 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
-// public folder
+
+
+// middleware and static files
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }))
+app.use(morgan ('dev'));
 
 app.get('/', (req, res) => {
-    res.send('working')
+    res.render('index', { title: 'Home' })
 })
 
 // start the server
