@@ -75,15 +75,15 @@ app.use(function (req, res, next) {
 
 
 // set routes
-const pages = require('./routes/pages.js')
-const adminPages = require('./routes/admin_pages.js')
+const pages = require('./routes/pages.js');
+const adminPages = require('./routes/admin_pages.js');
 
-app.use('/admin/pages', adminPages)
-app.use('/', pages)
+app.use('/', pages);
+app.use('/admin/pages', adminPages);
 
 
 // start the server
 const port = 3002;
 app.listen(port, () => {
     console.log(`server started on port ${port}`)
-})
+});
