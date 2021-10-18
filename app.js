@@ -21,6 +21,9 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
+// set global errors variable
+app.locals.errors = null;
+
 // middleware and static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))

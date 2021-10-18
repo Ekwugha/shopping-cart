@@ -4,7 +4,7 @@ const router = express.Router();
 // Get pages index
 
 router.get('/', (req, res) => {
-    res.send('admin area')
+    res.send('admin area');
 });
 
 
@@ -14,6 +14,35 @@ router.get('/add-page', (req, res) => {
     const title = "";
     const slug = "";
     const content = ""; 
+
+    res.render('admin/add_page', { title, slug, content })
+});
+
+// Post add page
+
+router.post('/add-page', (req, res) => {
+    req.checkBody ('title', 'Title must have a value').notEmpty();
+    req.checkBody ('content', 'Content must have a value').notEmpty();
+
+    const title = req.body.title;
+    let slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
+    if (slug == "") slug = title.replace(/\s+/g, '-').toLowerCase();
+    const content = req.body.content;
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        res.render('admin/add_page', {
+            errors: errors,
+            title: title,
+            slug: slug,
+            content: content
+        });
+    } else {
+        console.log('success')
+    }
+    
+    
 
     res.render('admin/add_page', { title, slug, content })
 });
