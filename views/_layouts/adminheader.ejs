@@ -37,7 +37,7 @@
     <%- messages('messages', locals) %>        
     
     <% if (errors) { %>
-      <% errors.forEach(function(errors) { %>
+      <% errors.forEach((errors) => { %>
         <div class="alert alert-danger">
           <%= errors.msg %>
         </div>
