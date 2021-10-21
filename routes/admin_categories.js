@@ -7,12 +7,12 @@ const Category = require('../models/category')
 // Get pages index
 
 router.get('/', (req, res) => {
-    res.send('category index')
-    // Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
-    //     res.render('admin/pages', {
-    //         pages: pages
-    //     })
-    // })
+    Category.find((err, categories) => {
+        if(err) console.log(err);
+        res.render('admin/categories', {
+            categories: categories
+        })
+    })
 });
 
 
