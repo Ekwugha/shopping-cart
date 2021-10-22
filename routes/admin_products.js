@@ -7,9 +7,24 @@ const resizeImg = require('resize-img');
 // Get product model
 const Product = require('../models/product')
 
+// Get category model
+const Category = require('../models/category')
+
 // Get products index
 
 router.get('/', (req, res) => {
+    var count;
+
+    Product.count((err, c) => {
+        count = c;
+    });
+
+    Product.find((err, products) => {
+        res.render('admin/products', {
+            products: products,
+            count: count
+        })
+    })
     
 });
 
