@@ -20,23 +20,22 @@ router.get('/', (req, res) => {
     });
 
     Product.find((err, products) => {
-        res.render('admin/products', {
-            products: products,
-            count: count
-        })
+        res.render('admin/products', { products, count })
     })
     
 });
 
 
-// Get add page
+// Get add product
 
-router.get('/add-page', (req, res) => {
+router.get('/add-product', (req, res) => {
     const title = "";
-    const slug = "";
-    const content = ""; 
+    const desc = "";
+    const price = ""; 
 
-    res.render('admin/add_page', { title, slug, content })
+    Category.find((err, categories) => {
+        res.render('admin/add_product', { title, desc, categories, price })
+    })
 });
 
 // Post add page
