@@ -10,9 +10,7 @@ const Product = require('../models/product')
 // Get products index
 
 router.get('/', (req, res) => {
-    Product.find({}).sort({ sorting: 1 }).exec((err, products) => {
-        res.render('admin/products', { products })
-    })
+    
 });
 
 
