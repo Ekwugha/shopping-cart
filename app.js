@@ -6,7 +6,7 @@ const config = require('./config/database');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressValidator = require('express-validator');
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
 
 
 // connect to db
@@ -67,6 +67,23 @@ app.use(expressValidator ({
             msg: msg,
             value: value
         };
+    },
+    customValidators: {
+        isImage: (value, filename) => {
+            const extension = (path.extname(filename)).toLowerCase();
+            switch (extension) {
+                case '.jpg':
+                    return '.jpg';
+                case '.jpeg':
+                    return '.jpeg';
+                case '.png':
+                    return '.png';
+                case '':
+                    return '.jpg';
+                default:
+                    return false;
+            }
+        }
     }
 }));
 
@@ -86,7 +103,7 @@ app.use(function (req, res, next) {
 const pages = require('./routes/pages.js');
 const adminPages = require('./routes/admin_pages.js');
 const adminCategories = require('./routes/admin_categories.js');
-const adminProducts = require('./routes/admin_products.js');
+let adminProducts = require('./routes/admin_products.js');
 
 app.use('/', pages);
 app.use('/admin/pages', adminPages);
