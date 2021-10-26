@@ -261,6 +261,34 @@ router.post('/edit-product/:id', (req, res) => {
 
 
 
+
+
+
+// post product gallery
+
+
+router.post('/product-gallery/:id', function (req, res) {
+    
+        const productImage = req.files.file;
+        const id = req.params.id;
+        const path = 'public/product_images/' + id + '/gallery/' + req.files.file.name;
+        const thumbsPath = 'public/product_images/' + id + '/gallery/thumbs/' + req.files.file.name;
+    
+        productImage.mv(path,  (err) => {
+            if (err)
+                console.log(err);
+    
+            resizeImg(fs.readFileSync(path), {width: 100, height: 100}).then( (buf) =>  {
+                fs.writeFileSync(thumbsPath, buf);
+            });
+        });
+    
+        res.sendStatus(200);
+    
+    });
+
+
+
 // Get delete page
 
 router.get('/delete-page/:id', (req, res) => {
