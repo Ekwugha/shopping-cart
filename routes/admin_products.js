@@ -310,13 +310,22 @@ router.get('/delete-image/:image', (req, res) => {
 
 
 
-// Get delete page
+// Get delete product
 
-router.get('/delete-page/:id', (req, res) => {
-    Page.findByIdAndRemove(req.params.id, (err, page) => {
-        if (err) return console.log(err);
-        req.flash('success', 'Page deleted!');
-        res.redirect('/admin/pages/')
+router.get('/delete-product/:id', (req, res) => {
+    const id = req.params.id;
+    const path = 'public/product_images/' + id;
+
+    fs.remove(path, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            Product.findByIdAndRemove(id, (err) => {
+                if (err) console.log(err);
+            })
+            req.flash('success', 'Product deleted!');
+            res.redirect('/admin/products/')
+        }
     })
 });
 

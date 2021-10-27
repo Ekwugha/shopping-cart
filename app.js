@@ -25,6 +25,18 @@ app.set('view engine', 'ejs')
 // set global errors variable
 app.locals.errors = null;
 
+// get page model
+let Page = require('./models/page');
+
+// get all pages to pass to header.ejs
+Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.pages = pages;
+    }
+})
+
 // middleware and static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
