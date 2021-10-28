@@ -199,11 +199,21 @@ router.post('/edit-page/:id', (req, res) => {
 // Get delete page
 
 router.get('/delete-page/:id', (req, res) => {
-    Page.findByIdAndRemove(req.params.id, (err, page) => {
-        if (err) return console.log(err);
+    Page.findByIdAndRemove(req.params.id, (err) => {
+        if (err)
+            return console.log(err);
+
+        Page.find({}).sort({sorting: 1}).exec((err, pages) => {
+            if (err) {
+                console.log(err);
+            } else {
+                req.app.locals.pages = pages;
+            }
+        });
+
         req.flash('success', 'Page deleted!');
-        res.redirect('/admin/pages/')
-    })
+        res.redirect('/admin/pages/');
+    });
 });
 
 // exports
