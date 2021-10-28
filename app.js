@@ -15,15 +15,28 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => console.log('connected to mongodb'))
     .catch((err) => console.log(err));
 
+
+
+
 // init app
 const app = express();
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
+
+
+
 // set global errors variable
 app.locals.errors = null;
+
+
+
 
 // get page model
 let Page = require('./models/page');
@@ -37,6 +50,25 @@ Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
     }
 })
 
+
+
+
+
+// get category model
+let Category = require('./models/category');
+
+// get all categories to pass to header.ejs
+Category.find((err, categories) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.categories = categories;
+    }
+})
+
+
+
+
 // middleware and static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
@@ -44,14 +76,23 @@ app.use(morgan ('dev'));
 
 
 
+
+
+
 // express fileupload middleware
 app.use(fileUpload());
+
+
+
 
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+
+
+
 
 
 
@@ -62,6 +103,9 @@ app.use(session({
     saveUninitialized: true,
     // cookie: { secure: true }
   }))
+
+
+
 
 
 // Express validator
@@ -98,6 +142,8 @@ app.use(expressValidator ({
         }
     }
 }));
+
+
 
 
 
