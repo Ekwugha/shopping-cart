@@ -1,17 +1,41 @@
 const express = require('express');
 const router = express.Router();
 
+// Get page model
+let Page = require('../models/page')
+
 
 // get /
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Home'})
+    Page.findOne({slug: 'home'}, (err, page) => {
+        if (err)
+            console.log(err);
+
+        res.render('index', {
+            title: page.title,
+            content: page.content
+        });
+    });
 })
 
 
 
 // get a page
 router.get('/:slug', (req, res) => {
-    res.render('index', { title: 'Home'})
+
+    let slug = req.params.slug;
+
+    Page.findOne({slug: slug}, (err, page) => {
+        if (err) console.log(err);
+        if (!page) {
+            res.redirect('/');
+        } else {
+            res.render('index', { 
+                title: page.title,
+                content: page.content
+            })
+        }
+    })
 })
 
 
