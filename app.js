@@ -156,10 +156,18 @@ app.use(function (req, res, next) {
 
 
 
+app.get('*', (req,res,next) => {
+    res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
+    next();
+ });
+
+
 
 // set routes
 const pages = require('./routes/pages.js');
 const products = require('./routes/products.js');
+const cart = require('./routes/cart.js');
 const adminPages = require('./routes/admin_pages.js');
 const adminCategories = require('./routes/admin_categories.js');
 let adminProducts = require('./routes/admin_products.js');
@@ -168,6 +176,7 @@ app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
 app.use('/products', products);
+app.use('/cart', cart);
 app.use('/', pages);
 
 
