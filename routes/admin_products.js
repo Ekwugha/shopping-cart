@@ -7,7 +7,7 @@ const resizeImg = require('resize-img');
 // Get product model
 const Product = require('../models/product')
 
-// Get category model
+// Get category model   
 const Category = require('../models/category')
 
 // Get products index
@@ -32,9 +32,9 @@ router.get('/', (req, res) => {
 // Get add product
 
 router.get('/add-product', (req, res) => {
-    const title = "";
-    const desc = "";
-    const price = ""; 
+    let title = "";
+    let desc = "";
+    let price = ""; 
 
     Category.find((err, categories) => {
         res.render('admin/add_product', { 

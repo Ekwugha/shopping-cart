@@ -12,7 +12,7 @@ const fileUpload = require('express-fileupload');
 // connect to db
 const dbURI = (config.database)
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => console.log('connected to mongodb'))
+    .then((result) => console.log('connected to mongodb'))  
     .catch((err) => console.log(err));
 
 
@@ -164,15 +164,15 @@ const adminPages = require('./routes/admin_pages.js');
 const adminCategories = require('./routes/admin_categories.js');
 let adminProducts = require('./routes/admin_products.js');
 
-app.use('/', pages);
-app.use('/products', products);
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
+app.use('/products', products);
+app.use('/', pages);
 
 
 // start the server
 const port = 3002;
 app.listen(port, () => {
-    console.log(`server started on port ${port}`)
+    console.log(`server started on port ${port}`);
 });

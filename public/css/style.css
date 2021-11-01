@@ -1,6 +1,6 @@
-#imgPreview{
+/* #imgPreview{
     margin: 20px;
-}
+} */
    
 img.pimage {
     width: 150px;
@@ -14,4 +14,19 @@ a.pa {
 .row.products .p {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.t {
+    margin-top: 90px;
+}
+img.spi {
+    width: 100%;
+}
+ul.gallery li {
+    display: inline-block;
+    margin: 20px;
+    list-style: none;
+}
+
+img.cpi {
+    width: 100px;
 }
