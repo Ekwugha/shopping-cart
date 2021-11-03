@@ -10,7 +10,7 @@ router.get('/add/:product', (req, res) => {
 
     let slug = req.params.product;
 
-    Page.findOne({slug: slug}, (err, page) => {
+    Product.findOne({slug: slug}, (err, p) => {
         if (err)
             console.log(err);
 
@@ -48,6 +48,21 @@ router.get('/add/:product', (req, res) => {
         req.flash('success', 'Product added!');
         res.redirect('back');
     });
+})
+
+
+
+
+/*
+ * GET checkout page
+ */
+
+router.get('/checkout', (req, res) => {
+    res.render('checkout', {
+        title: 'Checkout',
+        cart: req.session.cart
+    })
+
 })
 
 
