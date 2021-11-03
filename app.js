@@ -153,6 +153,11 @@ app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+// error is not showing
+app.use(function(req, res, next){
+    res.locals.message = req.flash();
+    next();
+});
 
 
 

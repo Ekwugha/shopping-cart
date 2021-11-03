@@ -68,5 +68,43 @@ router.get('/checkout', (req, res) => {
 
 
 
+/*
+ * GET update product page
+ */
+router.get('/update/:product', (req, res) => {
+    const  slug = req.params.product;
+    const cart = req.session.cart;
+    const action = req.query.action;
+
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].title == slug) {
+            switch (action) {
+                case "add":
+                    cart[i].qty++;
+                    break;
+                case "remove":
+                    cart[i].qty--;
+                    if (cart[i].qty < 1)
+                        cart.splice(i, 1);
+                    break;
+                case "clear":
+                    cart.splice(i, 1);
+                    if (cart.length == 0)
+                        delete req.session.cart;
+                    break;
+                default:
+                    console.log('update problem');
+                    break;
+            }
+            break;
+        }
+    }
+
+    req.flash('success', 'Cart updated!');
+    res.redirect('/cart/checkout');
+
+})
+
+
 // exports
 module.exports = router;
