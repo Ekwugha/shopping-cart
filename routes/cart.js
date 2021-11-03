@@ -58,10 +58,15 @@ router.get('/add/:product', (req, res) => {
  */
 
 router.get('/checkout', (req, res) => {
-    res.render('checkout', {
-        title: 'Checkout',
-        cart: req.session.cart
-    })
+    if (req.session.cart && req.session.cart.length == 0) {
+        delete req.session.cart;
+        res.redirect('/cart/checkout');
+    } else {
+        res.render('checkout', {
+            title: 'Checkout',
+            cart: req.session.cart
+        });
+    }
 
 })
 
