@@ -111,5 +111,20 @@ router.get('/update/:product', (req, res) => {
 })
 
 
+
+
+/*
+ * GET clear cart
+ */
+router.get('/clear', function (req, res) {
+    
+    delete req.session.cart;
+    
+    req.flash('success', 'Cart cleared!');
+    res.redirect('/cart/checkout');
+    
+});
+
+
 // exports
 module.exports = router;
