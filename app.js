@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
+const passport = require('passport')
 
 
 // connect to db
@@ -158,6 +159,14 @@ app.use(function(req, res, next){
     res.locals.message = req.flash();
     next();
 });
+
+
+
+// Passport Config
+require('./config/passport')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
