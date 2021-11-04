@@ -182,6 +182,7 @@ app.get('*', (req,res,next) => {
 const pages = require('./routes/pages.js');
 const products = require('./routes/products.js');
 const cart = require('./routes/cart.js');
+const users = require('./routes/users.js');
 const adminPages = require('./routes/admin_pages.js');
 const adminCategories = require('./routes/admin_categories.js');
 let adminProducts = require('./routes/admin_products.js');
@@ -191,6 +192,7 @@ app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
 app.use('/products', products);
 app.use('/cart', cart);
+app.use('/users', users);
 app.use('/', pages);
 
 
