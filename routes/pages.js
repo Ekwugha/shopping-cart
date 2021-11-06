@@ -29,6 +29,7 @@ router.get('/:slug', (req, res) => {
         if (err) console.log(err);
         if (!page) {
             res.redirect('/');
+            // pages: null
         } else {
             res.render('index', { 
                 title: page.title,

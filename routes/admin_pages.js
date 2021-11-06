@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../config/auth');
+const isAdmin = auth.isAdmin;
 
 // Get page model
 const Page = require('../models/page')
 
 // Get pages index
 
-router.get('/', (req, res) => {
+router.get('/', isAdmin, (req, res) => {
     Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
         res.render('admin/pages', {
             pages: pages
@@ -17,7 +19,7 @@ router.get('/', (req, res) => {
 
 // Get add page
 
-router.get('/add-page', (req, res) => {
+router.get('/add-page', isAdmin, (req, res) => {
     const title = "";
     const slug = "";
     const content = ""; 
@@ -129,7 +131,7 @@ router.post('/reorder-pages', function (req, res) {
 
 // Get edit page
 
-router.get('/edit-page/:id', (req, res) => {
+router.get('/edit-page/:id', isAdmin, (req, res) => {
     Page.findById( req.params.id , (err, page) => {
         if (err) return console.log(err);
 
@@ -198,7 +200,7 @@ router.post('/edit-page/:id', (req, res) => {
 
 // Get delete page
 
-router.get('/delete-page/:id', (req, res) => {
+router.get('/delete-page/:id', isAdmin, (req, res) => {
     Page.findByIdAndRemove(req.params.id, (err) => {
         if (err)
             return console.log(err);
