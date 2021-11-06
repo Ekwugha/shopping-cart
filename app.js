@@ -197,10 +197,10 @@ app.use('/', pages);
 
 
 // start the server
-// const port = process.env.PORT || 3002;
-// app.listen(port, () => {
-//     console.log(`server started on port ${port}`);
-// });
-app.listen(process.env.PORT || 3002, function(){
-    console.log("Express server listening on port", this.address().port, app.settings.env);
-  });
+const port = process.env.PORT || 3002;
+app.listen(port, () => {
+    console.log(`server started on port ${port}`);
+});
+// app.listen(process.env.PORT || 3002, function(){
+//     console.log("Express server listening on port", this.address().port, app.settings.env);
+//   });
