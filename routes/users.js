@@ -85,28 +85,28 @@ router.post('/register', (req, res) => {
 /*
  * GET login
  */
-// router.get('/login', function (req, res) {
+router.get('/login', function (req, res) {
 
-//     if (res.locals.user) res.redirect('/');
+    if (res.locals.user) res.redirect('/');
     
-//     res.render('login', {
-//         title: 'Log in'
-//     });
+    res.render('login', {
+        title: 'Log in'
+    });
 
-// });
+});
 
 /*
  * POST login
  */
-// router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res, next) {
 
-//     passport.authenticate('local', {
-//         successRedirect: '/',
-//         failureRedirect: '/users/login',
-//         failureFlash: true
-//     })(req, res, next);
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
     
-// });
+});
 
 /*
  * GET logout

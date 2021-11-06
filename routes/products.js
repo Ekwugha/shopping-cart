@@ -58,6 +58,7 @@ router.get('/:category', function (req, res) {
  */
 router.get('/:category/:product', (req, res) => {
     let galleryImages = null;
+    let loggedIn = (req.isAuthenticated()) ? true : false;
 
     Product.findOne({slug: req.params.product}, (err, product) => {
         if (err) {
@@ -75,6 +76,7 @@ router.get('/:category/:product', (req, res) => {
                         title: product.title,
                         p: product,
                         galleryImages: galleryImages,
+                        loggedIn: loggedIn
                     });
                 }
             });
