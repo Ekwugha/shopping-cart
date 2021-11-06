@@ -20,67 +20,67 @@ router.get('/register', function (req, res) {
 /*
  * POST register
  */
-// router.post('/register', function (req, res) {
+router.post('/register', (req, res) => {
 
-//     var name = req.body.name;
-//     var email = req.body.email;
-//     var username = req.body.username;
-//     var password = req.body.password;
-//     var password2 = req.body.password2;
+    const name = req.body.name;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const password2 = req.body.password2;
 
-//     req.checkBody('name', 'Name is required!').notEmpty();
-//     req.checkBody('email', 'Email is required!').isEmail();
-//     req.checkBody('username', 'Username is required!').notEmpty();
-//     req.checkBody('password', 'Password is required!').notEmpty();
-//     req.checkBody('password2', 'Passwords do not match!').equals(password);
+    req.checkBody('name', 'Name is required!').notEmpty();
+    req.checkBody('email', 'Email is required!').isEmail();
+    req.checkBody('username', 'Username is required!').notEmpty();
+    req.checkBody('password', 'Password is required!').notEmpty();
+    req.checkBody('password2', 'Passwords do not match!').equals(password);
 
-//     var errors = req.validationErrors();
+    var errors = req.validationErrors();
 
-//     if (errors) {
-//         res.render('register', {
-//             errors: errors,
-//             user: null,
-//             title: 'Register'
-//         });
-//     } else {
-//         User.findOne({username: username}, function (err, user) {
-//             if (err)
-//                 console.log(err);
+    if (errors) {
+        res.render('register', {
+            errors: errors,
+            user: null,
+            title: 'Register'
+        });
+    } else {
+        User.findOne({username: username}, (err, user) => {
+            if (err)
+                console.log(err);
 
-//             if (user) {
-//                 req.flash('danger', 'Username exists, choose another!');
-//                 res.redirect('/users/register');
-//             } else {
-//                 var user = new User({
-//                     name: name,
-//                     email: email,
-//                     username: username,
-//                     password: password,
-//                     admin: 0
-//                 });
+            if (user) {
+                req.flash('danger', 'Username exists, choose another!');
+                res.redirect('/users/register');
+            } else {
+                let user = new User({
+                    name: name,
+                    email: email,
+                    username: username,
+                    password: password,
+                    admin: 0
+                });
 
-//                 bcrypt.genSalt(10, function (err, salt) {
-//                     bcrypt.hash(user.password, salt, function (err, hash) {
-//                         if (err)
-//                             console.log(err);
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(user.password, salt, (err, hash) => {
+                        if (err)
+                            console.log(err);
 
-//                         user.password = hash;
+                        user.password = hash;
 
-//                         user.save(function (err) {
-//                             if (err) {
-//                                 console.log(err);
-//                             } else {
-//                                 req.flash('success', 'You are now registered!');
-//                                 res.redirect('/users/login')
-//                             }
-//                         });
-//                     });
-//                 });
-//             }
-//         });
-//     }
+                        user.save((err) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                req.flash('success', 'You are now registered!');
+                                res.redirect('/users/login')
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    }
 
-// });
+});
 
 /*
  * GET login
