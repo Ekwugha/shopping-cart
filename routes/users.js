@@ -111,14 +111,14 @@ router.post('/login', function (req, res, next) {
 /*
  * GET logout
  */
-// router.get('/logout', function (req, res) {
+router.get('/logout', function (req, res) {
 
-//     req.logout();
+    req.logout();
     
-//     req.flash('success', 'You are logged out!');
-//     res.redirect('/users/login');
+    req.flash('success', 'You are logged out!');
+    res.redirect('/users/login');
 
-// });
+});
 
 // Exports
 module.exports = router;
