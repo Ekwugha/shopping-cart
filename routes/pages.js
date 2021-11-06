@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
             console.log(err);
 
         res.render('index', {
-            // title: page.title,
+            title: page.title,
             content: page.content
         });
     });
@@ -29,7 +29,6 @@ router.get('/:slug', (req, res) => {
         if (err) console.log(err);
         if (!page) {
             res.redirect('/');
-            // pages: null
         } else {
             res.render('index', { 
                 title: page.title,
